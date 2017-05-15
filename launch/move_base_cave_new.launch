@@ -1,0 +1,19 @@
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+  <include file="$(find exp_tremaux)/launch/move_base.xml"/>
+  <node pkg="stage_ros" type="stageros" name="stageros" args="$(find exp_tremaux)/worlds/cave.world" respawn="false" >
+    <param name="base_watchdog_timeout" value="0.2"/>
+  </node>
+  
+  <node pkg="cg_mrslam" type="sr_slam_map" name="graph_slam" >
+  </node>
+  
+  <node pkg="inc_dude" type="inc_dude" name="inc_DuDe" args="2.5 ">
+  </node>
+  
+
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find exp_tremaux)/launch/exploration_rviz.rviz" />
+</launch>
